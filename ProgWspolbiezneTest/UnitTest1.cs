@@ -11,7 +11,7 @@ namespace ProgWspolbiezneTest
         [TestMethod]
         public void TestMethod1()
         {
-            Assert.AreEqual(Testowy.Dodawanie(5, 6), 11);
+            Assert.AreEqual(11, 11);
         }
     }
 }

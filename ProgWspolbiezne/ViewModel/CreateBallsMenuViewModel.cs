@@ -6,11 +6,7 @@ using System.Threading.Tasks;
 
 namespace ProgWspolbiezne.ViewModel
 {
-    public class Testowy
+    internal class CreateBallsMenuViewModel
     {
-        public static int Dodawanie(int a, int b)
-        {
-            return a + b;
-        }
     }
 }
