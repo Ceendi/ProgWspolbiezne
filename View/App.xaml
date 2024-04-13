@@ -1,11 +1,11 @@
-﻿<Application x:Class="ProgWspolbiezne.App"
+﻿<Application x:Class="View.App"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:local="clr-namespace:ProgWspolbiezne">
+             xmlns:local="clr-namespace:View">
     <Application.Resources>
-         <Style TargetType="Button">
+        <Style TargetType="Button">
             <Setter Property="Padding" Value="10 5 10 5"></Setter>
-         </Style>
+        </Style>
         <Style TargetType="TextBox">
             <Setter Property="Padding" Value="10 5 10 5"></Setter>
         </Style>

@@ -1,11 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Input;
 
-namespace ProgWspolbiezne.ViewModel
+namespace ViewModel
 {
     internal class CreateBallsMenuViewModel : ViewModelBase
     {
@@ -20,12 +18,12 @@ namespace ProgWspolbiezne.ViewModel
             set
             {
                 _ballCount = value;
-                OnPropertyChanged(nameof(BallCount));
+                //OnPropertyChanged(nameof(BallCount));
             }
         }
 
-        public ICommand StartCommand { get;  }  
-        public ICommand ExitCommand { get;  }
+        public ICommand StartCommand { get; }
+        public ICommand ExitCommand { get; }
 
         public CreateBallsMenuViewModel()
         {

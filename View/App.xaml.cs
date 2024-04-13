@@ -1,9 +1,9 @@
 ﻿using System.Configuration;
 using System.Data;
 using System.Windows;
-using ProgWspolbiezne.ViewModel;
+using ViewModel;
 
-namespace ProgWspolbiezne
+namespace View
 {
     /// <summary>
     /// Interaction logic for App.xaml
