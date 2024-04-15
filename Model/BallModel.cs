@@ -50,9 +50,10 @@ namespace Model
 
         private void Move(object state)
         {
-            if (Top > 50 && Top < (350 - Diameter)) {
+            if (Top > 50 && Top < (350 - Diameter))
+            {
                 Top += (Random.NextDouble() - 0.5) * 10;
-            } 
+            }
             else
             {
                 Top = 150;
