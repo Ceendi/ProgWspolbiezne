@@ -1,10 +1,6 @@
 ﻿using Data;
-using System;
 using System.Collections.Generic;
-using System.ComponentModel.Design;
 using System.Linq;
-using System.Text;
-using System.Threading;
 
 namespace Logic
 {
@@ -46,23 +42,6 @@ namespace Logic
             foreach (Ball ball in _dataAPI.GetBalls().Cast<Ball>())
             {
                 ball.BallPositionChanged += OnBallPositionChanged;
-            }
-            StartBallMovement();
-        }
-
-        private void StartBallMovement()
-        {
-            IsRunning = true;
-            foreach (Ball ball in _dataAPI.GetBalls().Cast<Ball>())
-            {
-                while (IsRunning)
-                {
-                    while (true)
-                    {
-                        ball.Move();
-                        Thread.Sleep(10);
-                    }
-                }
             }
         }
 

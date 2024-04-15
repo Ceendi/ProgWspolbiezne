@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
+﻿
 namespace Data
 {
     public interface IBall : INotifyBallPositionChanged
@@ -12,6 +9,6 @@ namespace Data
         double SpeedX { get; set; }
         double SpeedY { get; set; }
 
-        void Move();
+        void Move(object state);
     }
 }

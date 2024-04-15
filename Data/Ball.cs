@@ -1,6 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
+using System.Threading;
 
 namespace Data
 {
@@ -12,6 +11,7 @@ namespace Data
         private double _left;
         private double _speedX;
         private double _speedY;
+        private readonly Timer MoveTimer;
 
         public Ball(double top, double left, double diameter, int id)
         {
@@ -20,8 +20,9 @@ namespace Data
             Left = left;
             Diameter = diameter;
             Id = id;
-            SpeedX = Random.NextDouble() - 0.5;
-            SpeedY = Random.NextDouble() - 0.5;
+            SpeedX = Random.NextDouble();
+            SpeedY = Random.NextDouble();
+            MoveTimer = new Timer(Move, null, TimeSpan.FromMilliseconds(10), TimeSpan.FromMilliseconds(10));
         }
 
         public double Top
@@ -38,7 +39,7 @@ namespace Data
         public double SpeedX
         {
             get { return _speedX; }
-            set { _speedY = value; }
+            set { _speedX = value; }
         }
         public double SpeedY
         {
@@ -50,7 +51,7 @@ namespace Data
 
 
 
-        public void Move()
+        public void Move(object state)
         {
             Top += SpeedY;
             Left += SpeedX;

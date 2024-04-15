@@ -1,72 +1,55 @@
-﻿using System;
+﻿using Data;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
-using System.Threading;
 
 namespace Model
 {
-    public class BallModel : IBallModel
+    public class BallModel : INotifyPropertyChanged
     {
-        public BallModel(double top, double left)
+        public event PropertyChangedEventHandler? PropertyChanged;
+
+        private void OnPropertyChanged([CallerMemberName] string propertyName = "")
         {
-            _top = top;
-            _left = left;
-            MoveTimer = new Timer(Move, null, TimeSpan.FromMilliseconds(10), TimeSpan.FromMilliseconds(10));
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
-        public event PropertyChangedEventHandler PropertyChanged;
+        private readonly Ball ball;
+
+        public BallModel(Ball ball)
+        {
+            this.ball = ball;
+            ball.BallPositionChanged += OnBallPositionChanged;
+        }
+
+        public void OnBallPositionChanged(object sender, BallPositionChangedEventArgs args)
+        {
+            OnPropertyChanged(nameof(Top));
+            OnPropertyChanged(nameof(Left));
+        }
 
         public double Top
         {
-            get { return _top; }
+            get { return ball.Top; }
             set
             {
-                _top = value;
-                RaisePropertyChanged("Top");
+                ball.Top = value;
+                OnPropertyChanged();
             }
         }
 
         public double Left
         {
-            get { return _left; }
+            get { return ball.Left; }
             set
             {
-                _left = value;
-                RaisePropertyChanged("Left");
+                ball.Left = value;
+                OnPropertyChanged();
             }
         }
 
-        public double Diameter { get; internal set; }
-
-        private double _top;
-        private double _left;
-        private readonly Timer MoveTimer;
-        private readonly Random Random = new Random();
-
-        private void RaisePropertyChanged([CallerMemberName] string propertyName = "")
+        public double Diameter
         {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-        }
-
-        private void Move(object state)
-        {
-            if (Top > 50 && Top < (350 - Diameter))
-            {
-                Top += (Random.NextDouble() - 0.5) * 10;
-            }
-            else
-            {
-                Top = 150;
-            }
-
-            if (Left > 50 && Left < (750 - Diameter))
-            {
-                Left += (Random.NextDouble() - 0.5) * 10;
-            }
-            else
-            {
-                Left = 350;
-            }
+            get { return ball.Diameter; }
         }
     }
 }
