@@ -4,7 +4,7 @@ namespace Data
 {
     public abstract class IDataAPI
     {
-        public Board? Board { get; set; }
+        public virtual IBoard? Board { get; set; }
         public static IDataAPI CreateDataAPI()
         {
             return new DataAPI();
