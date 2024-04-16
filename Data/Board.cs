@@ -25,8 +25,8 @@ namespace Data
             double Left;
 
             Diameter = random.Next(25, 50);
-            Top = random.NextDouble() * (Width - Diameter);
-            Left = random.NextDouble() * (Height - Diameter);
+            Top = random.NextDouble() * (Height - Diameter);
+            Left = random.NextDouble() * (Width - Diameter);
 
             Ball ball = new Ball(Top, Left, Diameter, Id);
 
