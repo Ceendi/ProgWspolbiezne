@@ -71,7 +71,6 @@ namespace Logic
 
         public override void StopSimulation()
         {
-            //now it doesnt work because stopmovment isn't doing anything
             StopMovement();
             _dataAPI.RemoveAllBalls();
         }

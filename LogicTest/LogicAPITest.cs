@@ -17,22 +17,17 @@ namespace Logic.Tests
 
             var mockDataAPI = new Mock<IDataAPI>();
 
-            // Ustawiamy zachowanie atrapy obiektu IDataAPI
             mockDataAPI.Setup(api => api.CreateSimulation(width, height, ballsCount));
             mockDataAPI.Setup(api => api.GetBalls()).Returns(new List<IBall>());
 
-            // U¿ywamy w³asnoœci Board zamiast niedozwolonej metody get_Board
             var mockBoard = new Mock<IBoard>();
             mockBoard.SetupGet(b => b.Width).Returns(width);
             mockBoard.SetupGet(b => b.Height).Returns(height);
-            //mockDataAPI.SetupGet(api => api.Board).Returns(mockBoard.Object);
 
             var logicAPI = new LogicAPI(mockDataAPI.Object);
 
-            // Act
             logicAPI.StartSimulation(height, width, ballsCount);
 
-            // Assert
             mockDataAPI.Verify(api => api.CreateSimulation(width, height, ballsCount), Times.Once);
         }
 
