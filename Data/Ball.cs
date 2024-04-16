@@ -20,8 +20,8 @@ namespace Data
             Left = left;
             Diameter = diameter;
             Id = id;
-            SpeedX = Random.NextDouble();
-            SpeedY = Random.NextDouble();
+            SpeedX = (Random.NextDouble() - 0.5) * 5;
+            SpeedY = (Random.NextDouble() - 0.5) * 5;
             MoveTimer = new Timer(Move, null, TimeSpan.FromMilliseconds(10), TimeSpan.FromMilliseconds(10));
         }
 
