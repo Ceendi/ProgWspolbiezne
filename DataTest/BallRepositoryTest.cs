@@ -15,7 +15,7 @@ namespace DataTest
         [Test]
         public void AddBall()
         {
-            Ball ball = new(4, 5, 6, 1);
+            IBall ball = new Ball(4, 5, 6, 1);
 
             repository.Add(ball);
             Assert.Contains(ball, repository.GetAll());
@@ -24,7 +24,7 @@ namespace DataTest
         [Test]
         public void RemoveBall()
         {
-            Ball ball = new(4, 5, 6, 1);
+            IBall ball = new Ball(4, 5, 6, 1);
 
             repository.Add(ball);
 
@@ -35,8 +35,8 @@ namespace DataTest
         [Test]
         public void GetAll()
         {
-            Ball ball1 = new(4, 5, 6, 1);
-            Ball ball2 = new(6, 1, 8, 2);
+            IBall ball1 = new Ball(4, 5, 6, 1);
+            IBall ball2 = new Ball(6, 1, 8, 2);
 
             repository.Add(ball1);
             repository.Add(ball2);
@@ -49,8 +49,8 @@ namespace DataTest
         [Test]
         public void RemoveAll()
         {
-            Ball ball1 = new(4, 5, 6, 1);
-            Ball ball2 = new(6, 1, 8, 2);
+            IBall ball1 = new Ball(4, 5, 6, 1);
+            IBall ball2 = new Ball(6, 1, 8, 2);
 
             repository.Add(ball1);
             repository.Add(ball2);

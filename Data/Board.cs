@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace Data
 {
-    public class Board
+    public class Board : IBoard
     {
         public double Width { get; set; }
         public double Height { get; set; }
