@@ -59,18 +59,27 @@ namespace ViewModel
             _ballsCount = 5;
             ModelLayer = new ModelAPI();
             _balls = new ObservableCollection<BallModel>();
+            _width = 1000;
+            _height = 500;
 
             StartCommand = new RelayCommand(Start);
+            StopCommand = new RelayCommand(Stop);
         }
 
         private void Start()
         {
             ModelLayer.Stop();
-            ModelLayer.Start(300, 700, _ballsCount);
+            ModelLayer.Start(_height, _width, _ballsCount);
             Balls = ModelLayer.GetBalls();
         }
-        
-        public ICommand StartCommand { get;}
 
+        private void Stop()
+        {
+            ModelLayer.Stop();
+            Balls = ModelLayer.GetBalls();
+        }
+
+        public ICommand StartCommand { get;}
+        public ICommand StopCommand { get; }
     }
 }

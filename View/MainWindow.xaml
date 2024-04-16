@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:ViewModel;assembly=ViewModel"
         xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
         mc:Ignorable="d"
-        Title="Odbijajace kulki" Height="500" Width="1000">
+        Title="Odbijajace kulki" Height="720" Width="1280">
 
     <Window.DataContext>
         <local:MainWindowViewModel />
@@ -16,10 +16,12 @@
             <RowDefinition Height="Auto"></RowDefinition>
             <RowDefinition Height="Auto"></RowDefinition>
         </Grid.RowDefinitions>
-        <Canvas Width="800" Height="400" Grid.Row="0">
-            <Rectangle Canvas.Left="0" Canvas.Top="0" Width="700" Height="300" Fill="Green"/>
-            <!--<Rectangle Canvas.Left="25" Canvas.Top="25" Width="750" Height="350" Stroke="Brown" StrokeThickness="25"/>-->
-
+        <StackPanel HorizontalAlignment="Center" Margin="25" Grid.Row="0" Orientation="Horizontal">
+            <TextBox Margin="10 0 10 0" Text="{Binding BallsCount}" Width="120" Height="auto"></TextBox>
+            <Button Padding="10 5 10 5" Margin="10 0 10 0" Command="{Binding StartCommand}" Content="START"></Button>
+            <Button Padding="10 5 10 5" Margin="10 0 10 0" Command="{Binding StopCommand}" Content="STOP"></Button>
+        </StackPanel>
+        <Border Width="{Binding Width}" Height="{Binding Height}" Grid.Row="1" Background="Green" BorderBrush="Red" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" BorderThickness="1">
             <ItemsControl ItemsSource="{Binding Balls}">
                 <ItemsControl.ItemsPanel>
                     <ItemsPanelTemplate>
@@ -38,11 +40,7 @@
                     </Style>
                 </ItemsControl.ItemContainerStyle>
             </ItemsControl>
-        </Canvas>
-        <StackPanel HorizontalAlignment="Center" Margin="25" Grid.Row="1" Orientation="Horizontal">
-            <TextBox Margin="10 0 10 0" Text="{Binding BallsCount}" Width="120" Height="auto"></TextBox>
-            <Button Padding="10 5 10 5" Command="{Binding StartCommand}" Content="START"></Button>
-        </StackPanel>
+        </Border>
     </Grid>
 
 </Window>
