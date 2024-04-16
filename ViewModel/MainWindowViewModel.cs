@@ -1,5 +1,7 @@
 ﻿using Model;
+using System;
 using System.Collections.ObjectModel;
+using System.Windows.Input;
 
 namespace ViewModel
 {
@@ -58,9 +60,17 @@ namespace ViewModel
             ModelLayer = new ModelAPI();
             _balls = new ObservableCollection<BallModel>();
 
+            StartCommand = new RelayCommand(Start);
+        }
+
+        private void Start()
+        {
             ModelLayer.Stop();
-            ModelLayer.Start(300, 700, 5);
+            ModelLayer.Start(300, 700, _ballsCount);
             Balls = ModelLayer.GetBalls();
         }
+        
+        public ICommand StartCommand { get;}
+
     }
 }
