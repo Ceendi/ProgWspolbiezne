@@ -47,6 +47,10 @@ namespace Model
             }
         }
 
+        public double Mass
+        {
+            get { return ball.Mass; }
+        }
         public double Diameter
         {
             get { return ball.Diameter; }

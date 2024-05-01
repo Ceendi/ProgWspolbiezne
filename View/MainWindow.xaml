@@ -21,7 +21,7 @@
             <Button Padding="10 5 10 5" Margin="10 0 10 0" Command="{Binding StartCommand}" Content="START"></Button>
             <Button Padding="10 5 10 5" Margin="10 0 10 0" Command="{Binding StopCommand}" Content="STOP"></Button>
         </StackPanel>
-        <Border Width="{Binding Width}" Height="{Binding Height}" Grid.Row="1" Background="Green" BorderBrush="Red" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" BorderThickness="1">
+        <Border Width="{Binding Width}" Height="{Binding Height}" Grid.Row="1" Background="Pink" BorderBrush="Red" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" BorderThickness="1">
             <ItemsControl ItemsSource="{Binding Balls}">
                 <ItemsControl.ItemsPanel>
                     <ItemsPanelTemplate>
@@ -30,7 +30,11 @@
                 </ItemsControl.ItemsPanel>
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
-                        <Ellipse Width= "{Binding Diameter}" Height="{Binding Diameter}" Fill="Blue" />
+                        <Grid>
+                            <Ellipse Width= "{Binding Diameter}" Height="{Binding Diameter}" Fill="White" />
+                            <TextBlock Text="{Binding Mass}" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="black" FontWeight="Bold" FontSize="15px"/>
+                        </Grid>
+                        
                     </DataTemplate>
                 </ItemsControl.ItemTemplate>
                 <ItemsControl.ItemContainerStyle>

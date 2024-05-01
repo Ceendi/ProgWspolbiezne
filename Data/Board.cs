@@ -20,15 +20,48 @@ namespace Data
         {
             Random random = new Random();
 
+            bool endWhile;
+
             double Diameter;
             double Top;
             double Left;
+            double Mass;
 
             Diameter = random.Next(25, 50);
+            Mass = Math.Floor(Math.Pow(Diameter, 2)*0.1);
+
             Top = random.NextDouble() * (Height - Diameter);
             Left = random.NextDouble() * (Width - Diameter);
+            double centreX = Left + Diameter / 2;
+            double centreY = Top + Diameter / 2;
+            while (true)
+            {
 
-            Ball ball = new Ball(Top, Left, Diameter, Id);
+                endWhile = true;
+                foreach (IBall ballTemp in ballRepository.GetAll())
+                {
+                    double centreXTemp = ballTemp.Left + ballTemp.Diameter / 2;
+                    double centreYTemp = ballTemp.Top + ballTemp.Diameter / 2;
+                    double distance = Math.Sqrt(Math.Pow(centreX - centreXTemp, 2) + Math.Pow(centreY - centreYTemp, 2));
+                    if (distance <= Diameter/2+ballTemp.Diameter/2)
+                    {
+                        endWhile = false;
+                        break;
+                    }
+                }
+
+                if (endWhile)
+                {
+                    break;
+                }
+
+                Top = random.NextDouble() * (Height - Diameter);
+                Left = random.NextDouble() * (Width - Diameter);
+                centreX = Left + Diameter / 2;
+                centreY = Top + Diameter / 2;
+            }
+
+            Ball ball = new Ball(Top, Left, Diameter, Mass,  Id);
 
             return ball;
         }
@@ -36,6 +69,8 @@ namespace Data
         public void GenerateBalls(int BallsCount)
         {
             ballRepository.RemoveAll();
+
+
             for (int i = 0; i < BallsCount; i++)
             {
                 Ball ball = GenerateBall(i);

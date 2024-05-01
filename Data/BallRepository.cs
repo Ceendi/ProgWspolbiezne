@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace Data
 {
@@ -28,6 +29,13 @@ namespace Data
 
         public void RemoveAll()
         {
+            foreach (IBall ball in _balls)
+            {
+                if (ball is IDisposable disposableBall)
+                {
+                    disposableBall.Dispose();
+                }
+            }
             _balls.Clear();
         }
     }

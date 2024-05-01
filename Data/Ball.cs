@@ -11,19 +11,22 @@ namespace Data
         private double _left;
         private double _speedX;
         private double _speedY;
+        private double _mass;
         private readonly Timer MoveTimer;
 
-        public Ball(double top, double left, double diameter, int id)
+        public Ball(double top, double left, double diameter, double mass, int id)
         {
             Random Random = new Random();
             Top = top;
             Left = left;
             Diameter = diameter;
+            Mass = mass;
             Id = id;
             SpeedX = (Random.NextDouble() - 0.5) * 5;
             SpeedY = (Random.NextDouble() - 0.5) * 5;
             MoveTimer = new Timer(Move, null, TimeSpan.FromMilliseconds(10), TimeSpan.FromMilliseconds(10));
         }
+
 
         public double Top
         {
@@ -36,6 +39,7 @@ namespace Data
             set { _left = value; }
         }
         public double Diameter { get; }
+        public double Mass { get; }
         public double SpeedX
         {
             get { return _speedX; }
@@ -47,16 +51,22 @@ namespace Data
             set { _speedY = value; }
         }
 
-        public event BallPositionChangedEventHandler? BallPositionChanged;
 
+        public event BallPositionChangedEventHandler? BallPositionChanged;
 
 
         public void Move(object state)
         {
+
             Top += SpeedY;
             Left += SpeedX;
 
             BallPositionChanged?.Invoke(this, new BallPositionChangedEventArgs(Top, Left));
+        }
+
+        public void Dispose()
+        {
+            MoveTimer.Dispose();
         }
     }
 }

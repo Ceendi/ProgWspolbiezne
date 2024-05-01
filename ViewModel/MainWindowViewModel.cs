@@ -54,9 +54,10 @@ namespace ViewModel
             }
         }
 
+
         public MainWindowViewModel()
         {
-            _ballsCount = 5;
+            _ballsCount = 10;
             ModelLayer = new ModelAPI();
             _balls = new ObservableCollection<BallModel>();
             _width = 1000;
