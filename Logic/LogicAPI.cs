@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace Logic
 {
@@ -40,9 +41,19 @@ namespace Logic
         public override void StartSimulation(double Height, double Width, int numberOfBalls)
         {
             _dataAPI.CreateSimulation(Width, Height, numberOfBalls);
+            IsRunning = true;
             foreach (Ball ball in _dataAPI.GetBalls().Cast<Ball>())
             {
                 ball.BallPositionChanged += OnBallPositionChanged;
+                Task.Run(async () =>
+                    {
+                        while (IsRunning)
+                        {
+                            await Task.Delay(TimeSpan.FromMilliseconds(10));
+                            ball.Move();
+                        }
+                    }
+                );
             }
         }
 

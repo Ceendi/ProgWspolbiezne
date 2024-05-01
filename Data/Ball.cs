@@ -12,7 +12,6 @@ namespace Data
         private double _speedX;
         private double _speedY;
         private double _mass;
-        private readonly Timer MoveTimer;
 
         public Ball(double top, double left, double diameter, double mass, int id)
         {
@@ -24,7 +23,6 @@ namespace Data
             Id = id;
             SpeedX = (Random.NextDouble() - 0.5) * 5;
             SpeedY = (Random.NextDouble() - 0.5) * 5;
-            MoveTimer = new Timer(Move, null, TimeSpan.FromMilliseconds(10), TimeSpan.FromMilliseconds(10));
         }
 
 
@@ -55,7 +53,7 @@ namespace Data
         public event BallPositionChangedEventHandler? BallPositionChanged;
 
 
-        public void Move(object state)
+        public void Move()
         {
 
             Top += SpeedY;
@@ -66,7 +64,6 @@ namespace Data
 
         public void Dispose()
         {
-            MoveTimer.Dispose();
         }
     }
 }

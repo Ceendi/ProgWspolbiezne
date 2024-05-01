@@ -12,7 +12,7 @@ namespace Data
         double SpeedX { get; set; }
         double SpeedY { get; set; }
 
-        void Move(object state);
+        void Move();
 
 
     }
