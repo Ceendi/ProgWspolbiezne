@@ -29,13 +29,6 @@ namespace Data
 
         public void RemoveAll()
         {
-            foreach (IBall ball in _balls)
-            {
-                if (ball is IDisposable disposableBall)
-                {
-                    disposableBall.Dispose();
-                }
-            }
             _balls.Clear();
         }
     }

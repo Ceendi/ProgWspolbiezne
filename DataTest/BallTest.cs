@@ -4,7 +4,7 @@ namespace DataTest
 {
     public class BallTest
     {
-        IBall ball;
+        private IBall ball;
 
         [SetUp]
         public void Setup()
@@ -12,8 +12,9 @@ namespace DataTest
             double Top = 10;
             double Left = 10;
             double Diameter = 20;
+            double Mass = 2;
             int Id = 1;
-            ball = new Ball(Top, Left, Diameter, Id);
+            ball = new Ball(Top, Left, Diameter, Mass, Id);
         }
 
         [Test]
@@ -23,7 +24,7 @@ namespace DataTest
             double oldLeft = ball.Left;
             double oldSpeedX = ball.SpeedX;
             double oldSpeedY = ball.SpeedY;
-            ball.Move(null);
+            ball.Move();
             Assert.That(ball.Left, Is.EqualTo(oldLeft + oldSpeedX));
             Assert.That(ball.Top, Is.EqualTo(oldTop + oldSpeedY));
         }
@@ -34,8 +35,9 @@ namespace DataTest
             double Top = 10;
             double Left = 10;
             double Diameter = 20;
+            double Mass = 2;
             int Id = 1;
-            IBall ball = new Ball(Top, Left, Diameter, Id);
+            IBall ball = new Ball(Top, Left, Diameter, Mass, Id);
             Assert.NotZero(ball.SpeedX);
             Assert.NotZero(ball.SpeedY);
         }

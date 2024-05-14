@@ -60,12 +60,62 @@ namespace Logic.Tests
 
             var logicAPI = new LogicAPI(mockDataAPI.Object);
 
-            Ball ball = new Ball(0, 0, 20, 1) { SpeedX = -5, SpeedY = -5 };
+            Ball ball = new Ball(0, 0, 20, 1, 1) { SpeedX = -5, SpeedY = -5 };
 
             logicAPI.CheckBoardCollision(ball);
 
             Assert.AreEqual(5, ball.SpeedX);
             Assert.AreEqual(5, ball.SpeedY);
+        }
+
+        [Test]
+        public void CheckBallCollision_BallsCollide_VelocitiesUpdated()
+        {
+            // Arrange
+            Mock<IBall> ballMock = new Mock<IBall>();
+            Mock<IBall> ballTempMock = new Mock<IBall>();
+
+            ballMock.SetupGet(b => b.Left).Returns(0);  // Ustawienie pozycji kulki 1
+            ballMock.SetupGet(b => b.Top).Returns(0);
+            ballMock.SetupGet(b => b.Diameter).Returns(10);
+            ballMock.SetupGet(b => b.Mass).Returns(1);
+            ballMock.SetupGet(b => b.SpeedX).Returns(2);
+            ballMock.SetupGet(b => b.SpeedY).Returns(1);
+
+            ballTempMock.SetupGet(b => b.Left).Returns(5);  // Ustawienie pozycji kulki 2 tak, aby siê zderza³y
+            ballTempMock.SetupGet(b => b.Top).Returns(0);
+            ballTempMock.SetupGet(b => b.Diameter).Returns(10);
+            ballTempMock.SetupGet(b => b.Mass).Returns(1);
+            ballTempMock.SetupGet(b => b.SpeedX).Returns(-2);
+            ballTempMock.SetupGet(b => b.SpeedY).Returns(1);
+
+            ballMock.SetupSet(b => b.SpeedX = It.IsAny<double>()).Verifiable();
+            ballMock.SetupSet(b => b.SpeedY = It.IsAny<double>()).Verifiable();
+            ballTempMock.SetupSet(b => b.SpeedX = It.IsAny<double>()).Verifiable();
+            ballTempMock.SetupSet(b => b.SpeedY = It.IsAny<double>()).Verifiable();
+
+            Mock<IDataAPI> dataAPIMock = new Mock<IDataAPI>();
+            List<IBall> balls = new List<IBall>
+            {
+                ballMock.Object,
+                ballTempMock.Object
+            };
+            dataAPIMock.Setup(api => api.GetBalls()).Returns(balls);
+
+            LogicAPI collisionHandler = new LogicAPI(dataAPIMock.Object);
+
+            collisionHandler.CheckBallCollision(ballTempMock.Object);
+
+            double expectedFinalV1X = -2;
+            double expectedFinalV1Y = 1;
+            double expectedFinalV2X = 2;
+            double expectedFinalV2Y = 1;
+            double delta = 0.00001;
+
+            ballMock.VerifySet(b => b.SpeedX = It.Is<double>(speed => speed <= -1 && speed >= -3), Times.AtLeastOnce());
+            ballMock.VerifySet(b => b.SpeedY = It.Is<double>(speed => speed >= 0 && speed <= 2), Times.AtLeastOnce());
+            ballTempMock.VerifySet(b => b.SpeedX = It.Is<double>(speed => speed >= 1 && speed <= 3), Times.AtLeastOnce());
+            ballTempMock.VerifySet(b => b.SpeedY = It.Is<double>(speed => speed >= 0 && speed <= 2), Times.AtLeastOnce());
         }
     }
 }

@@ -4,20 +4,14 @@ namespace DataTest
 {
     public class BoardTest
     {
-        IBoard board;
         int ballsCount = 5;
-        double width = 100;
-        double height = 100;
-
-        [SetUp]
-        public void Setup()
-        {
-            board = new Board(width, height);
-        }
+        double width = 800;
+        double height = 600;
 
         [Test]
         public void GenerateBallsCount()
         {
+            IBoard board = new Board(width, height);
             board.GenerateBalls(ballsCount);
             List<IBall> balls = board.GetBalls();
 
@@ -27,6 +21,7 @@ namespace DataTest
         [Test]
         public void GenerateBallsCorrectPositions()
         {
+            IBoard board = new Board(width, height);
             board.GenerateBalls(ballsCount);
             List<IBall> balls = board.GetBalls();
 
@@ -41,6 +36,8 @@ namespace DataTest
         [Test]
         public void RemoveAll()
         {
+            IBoard board = new Board(width, height);
+
             board.GenerateBalls(ballsCount);
 
             board.RemoveAll();

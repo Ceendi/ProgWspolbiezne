@@ -36,7 +36,6 @@ namespace Data
             double centreY = Top + Diameter / 2;
             while (true)
             {
-
                 endWhile = true;
                 foreach (IBall ballTemp in ballRepository.GetAll())
                 {
@@ -69,7 +68,6 @@ namespace Data
         public void GenerateBalls(int BallsCount)
         {
             ballRepository.RemoveAll();
-
 
             for (int i = 0; i < BallsCount; i++)
             {

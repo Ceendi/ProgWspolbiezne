@@ -3,7 +3,7 @@ using System;
 
 namespace Data
 {
-    public interface IBall : INotifyBallPositionChanged, IDisposable
+    public interface IBall : INotifyBallPositionChanged
     {
         double Top { get; set; }
         double Left { get; set; }
@@ -13,7 +13,5 @@ namespace Data
         double SpeedY { get; set; }
 
         void Move();
-
-
     }
 }

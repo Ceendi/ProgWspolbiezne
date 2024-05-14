@@ -11,7 +11,6 @@ namespace Data
         private double _left;
         private double _speedX;
         private double _speedY;
-        private double _mass;
 
         public Ball(double top, double left, double diameter, double mass, int id)
         {
@@ -52,18 +51,17 @@ namespace Data
 
         public event BallPositionChangedEventHandler? BallPositionChanged;
 
+        static object lockObject = new object();
+
 
         public void Move()
         {
-
-            Top += SpeedY;
-            Left += SpeedX;
-
-            BallPositionChanged?.Invoke(this, new BallPositionChangedEventArgs(Top, Left));
-        }
-
-        public void Dispose()
-        {
+            lock (lockObject) 
+            {
+                Top += SpeedY;
+                Left += SpeedX;
+                BallPositionChanged?.Invoke(this, new BallPositionChangedEventArgs(Top, Left));
+            }
         }
     }
 }

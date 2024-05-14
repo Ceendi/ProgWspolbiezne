@@ -4,8 +4,8 @@ namespace DataTest
 {
     public class DataAPITest
     {
-        double width = 100;
-        double height = 100;
+        double width = 800;
+        double height = 600;
         int ballsCount = 5;
         IDataAPI dataAPI;
 
