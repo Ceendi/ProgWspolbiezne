@@ -84,40 +84,44 @@ namespace Logic
 
         public void CheckBallCollision(IBall ball)
         {
+            float speedx1, speedx2, speedy1, speedy2;
             foreach (IBall ballTemp in _dataAPI.GetBalls().Where(x => !x.Equals(ball)).ToList())
             {
                 Tuple<IBall, IBall> collision = new Tuple<IBall, IBall>(ball, ballTemp);
-                bool isColliding = collidingPairs.Contains(collision, new TupleComparer<IBall, IBall>());
+                bool areColliding = collidingPairs.Contains(collision, new TupleComparer<IBall, IBall>());
 
                 double dx = ballTemp.Left + ballTemp.Diameter / 2 - (ball.Left + ball.Diameter / 2);
                 double dy = ballTemp.Top + ballTemp.Diameter / 2 - (ball.Top + ball.Diameter / 2);
                 double distance = Math.Sqrt(dx * dx + dy * dy);
 
-                if (distance <= ball.Diameter / 2 + ballTemp.Diameter / 2 && !isColliding)
+                if (distance <= ball.Diameter / 2 + ballTemp.Diameter / 2 && !areColliding)
                 {
                     collidingPairs.Add(collision);
 
                     double angle = Math.Atan2(dy, dx);
 
-                    double v1x = ball.SpeedX * Math.Cos(angle) + ball.SpeedY * Math.Sin(angle);
-                    double v1y = ball.SpeedY * Math.Cos(angle) - ball.SpeedX * Math.Sin(angle);
-                    double v2x = ballTemp.SpeedX * Math.Cos(angle) + ballTemp.SpeedY * Math.Sin(angle);
-                    double v2y = ballTemp.SpeedY * Math.Cos(angle) - ballTemp.SpeedX * Math.Sin(angle);
+                     double v1x = ball.SpeedX * Math.Cos(angle) + ball.SpeedY * Math.Sin(angle);
+                     double v1y = ball.SpeedY * Math.Cos(angle) - ball.SpeedX * Math.Sin(angle);
+                     double v2x = ballTemp.SpeedX * Math.Cos(angle) + ballTemp.SpeedY * Math.Sin(angle);
+                     double v2y = ballTemp.SpeedY * Math.Cos(angle) - ballTemp.SpeedX * Math.Sin(angle);
 
-                    double newV1x = ((ball.Mass - ballTemp.Mass) * v1x + 2 * ballTemp.Mass * v2x) / (ball.Mass + ballTemp.Mass);
-                    double newV2x = ((ballTemp.Mass - ball.Mass) * v2x + 2 * ball.Mass * v1x) / (ball.Mass + ballTemp.Mass);
+                     double newV1x = ((ball.Mass - ballTemp.Mass) * v1x + 2 * ballTemp.Mass * v2x) / (ball.Mass + ballTemp.Mass);
+                     double newV2x = ((ballTemp.Mass - ball.Mass) * v2x + 2 * ball.Mass * v1x) / (ball.Mass + ballTemp.Mass);
 
-                    double finalV1x = newV1x * Math.Cos(angle) - v1y * Math.Sin(angle);
-                    double finalV1y = v1y * Math.Cos(angle) + newV1x * Math.Sin(angle);
-                    double finalV2x = newV2x * Math.Cos(angle) - v2y * Math.Sin(angle);
-                    double finalV2y = v2y * Math.Cos(angle) + newV2x * Math.Sin(angle);
-                    
-                    ball.SpeedX = finalV1x;
-                    ball.SpeedY = finalV1y;
-                    ballTemp.SpeedX = finalV2x;
-                    ballTemp.SpeedY = finalV2y;
+                     double finalV1x = newV1x * Math.Cos(angle) - v1y * Math.Sin(angle);
+                     double finalV1y = v1y * Math.Cos(angle) + newV1x * Math.Sin(angle);
+                     double finalV2x = newV2x * Math.Cos(angle) - v2y * Math.Sin(angle);
+                     double finalV2y = v2y * Math.Cos(angle) + newV2x * Math.Sin(angle);
+
+                     lock (lockObject)
+                     {
+                         ball.SpeedX = finalV1x;
+                         ball.SpeedY = finalV1y;
+                         ballTemp.SpeedX = finalV2x;
+                         ballTemp.SpeedY = finalV2y;
+                     }
                 } 
-                else if (distance > (ball.Diameter / 2 + ballTemp.Diameter / 2) && isColliding)
+                else if (distance > (ball.Diameter / 2 + ballTemp.Diameter / 2) && areColliding)
                 {
                     collidingPairs.Remove(collision);
                 }

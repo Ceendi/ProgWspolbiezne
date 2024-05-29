@@ -20,7 +20,7 @@ namespace Data
         {
             Random random = new Random();
 
-            bool endWhile;
+            bool isWithin;
 
             double Diameter;
             double Top;
@@ -36,7 +36,7 @@ namespace Data
             double centreY = Top + Diameter / 2;
             while (true)
             {
-                endWhile = true;
+                isWithin = false;
                 foreach (IBall ballTemp in ballRepository.GetAll())
                 {
                     double centreXTemp = ballTemp.Left + ballTemp.Diameter / 2;
@@ -44,12 +44,12 @@ namespace Data
                     double distance = Math.Sqrt(Math.Pow(centreX - centreXTemp, 2) + Math.Pow(centreY - centreYTemp, 2));
                     if (distance <= Diameter/2+ballTemp.Diameter/2)
                     {
-                        endWhile = false;
+                        isWithin = true;
                         break;
                     }
                 }
 
-                if (endWhile)
+                if (!isWithin)
                 {
                     break;
                 }

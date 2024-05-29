@@ -51,12 +51,12 @@ namespace Data
 
         public event BallPositionChangedEventHandler? BallPositionChanged;
 
-        static object lockObject = new object();
+        static object moveLock = new object();
 
 
         public void Move()
         {
-            lock (lockObject) 
+            lock (moveLock)
             {
                 Top += SpeedY;
                 Left += SpeedX;
