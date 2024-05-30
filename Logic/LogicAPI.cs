@@ -24,7 +24,6 @@ namespace Logic
             {
                 this._dataAPI = dataAPI;
             }
-            _dataAPI.EnableLogging(logger);
         }
 
         public override List<IBall> GetBalls()
@@ -59,6 +58,7 @@ namespace Logic
                     }
                 );
             }
+            _dataAPI.EnableLogging(logger);
         }
 
         public void CheckBoardCollision(IBall ball)
@@ -133,6 +133,7 @@ namespace Logic
         public override void StopSimulation()
         {
             StopMovement();
+            _dataAPI.StopLogging();
             _dataAPI.RemoveAllBalls();
         }
 

@@ -14,5 +14,6 @@ namespace Data
         public abstract void RemoveAllBalls();
         public abstract void CreateSimulation(double Width, double Height, int BallCount);
         public abstract void EnableLogging(ILogger logger);
+        public abstract void StopLogging();
     }
 }

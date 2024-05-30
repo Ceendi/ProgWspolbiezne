@@ -8,6 +8,11 @@ namespace Data
     {
         public DateTime Timestamp { get; set; }
         public List<BallJsonData> Balls { get; set; }
+        public LoggerData(DateTime timestamp, List<BallJsonData> balls)
+        {
+            Timestamp = timestamp;
+            Balls = balls;
+        }
     }
 
     public class BallJsonData
@@ -17,13 +22,13 @@ namespace Data
         public double Left { get; set; }
         public double SpeedX { get; set; }
         public double SpeedY { get; set; }
-        public BallJsonData(int id, double top, double left, double speedX, double speedY)
+        public BallJsonData(IBall ball)
         {
-            Id = id;
-            Top = top;
-            Left = left;
-            SpeedX = speedX;
-            SpeedY = speedY;
+            Id = ball.Id;
+            Top = ball.Top;
+            Left = ball.Left;
+            SpeedX = ball.SpeedX;
+            SpeedY = ball.SpeedY;
         }
     }
 }

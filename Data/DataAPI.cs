@@ -1,5 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics;
+using System.Linq;
 using System.Timers;
 
 namespace Data
@@ -41,8 +43,16 @@ namespace Data
 
         private void OnTimedEvent(object sender, ElapsedEventArgs e)
         {
-            Debug.WriteLine(sender);
-            logger.LogData(Board.GetBalls());
+            List<BallJsonData> balls = Board.GetBalls().Select(ball => new BallJsonData(ball)).ToList();
+            logger.LogData(new LoggerData(DateTime.Now, balls));
+        }
+
+        public override void StopLogging()
+        {
+            if (timer != null)
+            {
+                timer.Stop();
+            }
         }
     }
 }
