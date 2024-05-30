@@ -18,6 +18,7 @@ namespace Model
             {
                 _logicAPI = logicAPI;
             }
+
         }
 
         public override ObservableCollection<BallModel> GetBalls()

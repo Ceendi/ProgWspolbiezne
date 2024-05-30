@@ -14,7 +14,6 @@ namespace View
         {
             MainWindow = new MainWindow()
             {
-                DataContext = new MainWindowViewModel()
             };
 
             MainWindow.Show();

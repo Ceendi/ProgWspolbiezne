@@ -7,6 +7,6 @@ namespace Data
 {
     public interface ILogger
     {
-        Task Log(string message);
+        void LogData(object data);
     }
 }

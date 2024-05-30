@@ -11,6 +11,7 @@ namespace Logic
         private readonly IDataAPI? _dataAPI;
         private object lockObject = new object();
         List<Tuple<IBall, IBall>> collidingPairs = new List<Tuple<IBall, IBall>>();
+        ILogger logger = new Logger();
 
 
         public LogicAPI(IDataAPI? dataAPI = null)
@@ -23,6 +24,7 @@ namespace Logic
             {
                 this._dataAPI = dataAPI;
             }
+            _dataAPI.EnableLogging(logger);
         }
 
         public override List<IBall> GetBalls()
